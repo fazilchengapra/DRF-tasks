@@ -4,7 +4,8 @@ from rest_framework.response import Response
 from .models import Student
 from rest_framework import status
 from .serializer import StudentSerializer
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.views import View
 
 
 # Create your views here.
@@ -25,3 +26,14 @@ def students(req):
 
     except Exception as e:
         return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+def fn_view(req):
+    return JsonResponse({"name": "fazil"})
+
+
+class MyView(View):
+    def get(self, req):
+        age = req.GET.get('name')
+        print(type(age))
+        return JsonResponse({"data": "this from class view"})
